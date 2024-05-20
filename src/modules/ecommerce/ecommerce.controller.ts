@@ -66,10 +66,11 @@ const getSingleEcommerceData = async (req: Request, res: Response) => {
 const modifyEcommerceData = async (req: Request, res: Response) => {
 
     try {
-
+        
         const { productId } = req.params;
         const updateData = req.body;
 
+         //it will call ecommerce.service.ts
         const result = await createEcommerceServices.modifyEcommerceDataFromDB(productId, updateData);
 
         res.status(200).json({
@@ -93,6 +94,7 @@ const deleteEcommerceData = async (req: Request, res: Response) => {
 
         const { productId } = req.params;
         
+         //it will call ecommerce.service.ts
         const result = await createEcommerceServices.deleteEcommerceDataFromDB(productId);
 
         res.status(200).json({
