@@ -37,15 +37,28 @@ const deleteEcommerceDataFromDB = async (id: string) => {
    
 };
 
-const searchProductFromDB = async (id: string) => {
-
-    const result = await Ecommerce.findByIdAndDelete(id);
-    return result;
+const searchProductFromDB = async (search: { searchTerm?: string }) => {
    
+    // const regex = new RegExp(.searchTerm, "i"); // Case-insensitive regex
+    // query.$or = [ 
+    //     { tags: { $in: [regex] } }
+    // ];
+    // const query = Ecommerce.find(search); // `query` is an instance of `Query`
+    // query.setOptions({ lean : true });
+    // query.$or = [ 
+    //     { tags: { $in: "iphone" } }
+    // ];
+    // const query: any = {};
+
+    //     const regex = new RegExp(search.searchTerm, "i"); // Case-insensitive regex
+    //     query.$or = [
+    //         { tags: { $in: [regex] } }
+    //     ];
+    // }
+
+    // const results = await Ecommerce.find(query);
+    // return results;
 };
-
-
-
 
 
 export const createEcommerceServices = {
@@ -54,5 +67,6 @@ export const createEcommerceServices = {
     getEcommerceSingleDataFromDB,
     modifyEcommerceDataFromDB,
     deleteEcommerceDataFromDB,
-    searchProductFromDB
+    searchProductFromDB,
+    
 }
