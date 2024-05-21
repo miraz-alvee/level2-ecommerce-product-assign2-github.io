@@ -4,11 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const ecommerce_routes_1 = require("./modules/ecommerce/ecommerce.routes");
+const order_routes_1 = require("./modules/ecomerce-order/order.routes");
+//import cors from "cors"
 const app = (0, express_1.default)();
-const port = 3000;
+//parsers
+app.use(express_1.default.json());
+//app.use(cors())
+app.use('/api/products', ecommerce_routes_1.ecommerceRoutes); // route for ecomerce products
+app.use('/api/orders', order_routes_1.orderRoutes); // route for ecomerce orders
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+exports.default = app;
