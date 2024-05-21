@@ -12,7 +12,7 @@ const createEcommerceData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -32,7 +32,7 @@ const createOrderData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -53,7 +53,7 @@ const getAllEcommerceData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -73,7 +73,7 @@ const getAllOrdereData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -94,7 +94,7 @@ const getSingleEcommerceData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -119,7 +119,7 @@ const modifyEcommerceData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -143,7 +143,7 @@ const deleteEcommerceData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -165,7 +165,7 @@ const searchEcommerceData = async (req: Request, res: Response) => {
             data: result,
         });
     }
-    catch (error: any) {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',

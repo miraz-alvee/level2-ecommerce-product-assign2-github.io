@@ -64,7 +64,7 @@ const searchProductFromDB = async (search : string) => {
         ]
     };
 
-    console.log(query);
+    //console.log(query);
     const result = await Ecommerce.find(query);
     return result;
 }

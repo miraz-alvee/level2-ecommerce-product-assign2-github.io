@@ -57,7 +57,7 @@ const searchProductFromDB = (search) => __awaiter(void 0, void 0, void 0, functi
             { tags: { $regex: regex } }
         ]
     };
-    console.log(query);
+    //console.log(query);
     const result = yield ecommerce_model_1.Ecommerce.find(query);
     return result;
 });

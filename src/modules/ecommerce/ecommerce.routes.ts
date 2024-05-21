@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import { createEcommerceControllers } from "./ecommerce.controller";
 
 const route = express.Router();
