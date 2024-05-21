@@ -21,6 +21,26 @@ const createEcommerceData = async (req: Request, res: Response) => {
     }
 };
 
+const createOrderData = async (req: Request, res: Response) => {
+
+    try {
+        //it will call ecommerce.service.ts
+        const result = await createEcommerceServices.createOrderData(req.body);
+        res.status(200).json({
+            success: true,
+            message: 'Order created succesfully',
+            data: result,
+        });
+    }
+    catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error,
+        });
+    }
+};
+
 const getAllEcommerceData = async (req: Request, res: Response) => {
 
     try {
@@ -30,6 +50,26 @@ const getAllEcommerceData = async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: 'Get all Products succesfully',
+            data: result,
+        });
+    }
+    catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error,
+        });
+    }
+};
+const getAllOrdereData = async (req: Request, res: Response) => {
+
+    try {
+        //it will call ecommerce.service.ts
+        const result = await createEcommerceServices.getOrderDataFromDB();
+
+        res.status(200).json({
+            success: true,
+            message: 'Get all Order data succesfully',
             data: result,
         });
     }
@@ -111,6 +151,28 @@ const deleteEcommerceData = async (req: Request, res: Response) => {
         });
     }
 }
+const searchEcommerceData = async (req: Request, res: Response) => {
+
+    try {
+        const {searchTerm} = req.params;
+        
+         //it will call ecommerce.service.ts
+        const result = await createEcommerceServices.searchProductFromDB(searchTerm);;
+
+        res.status(200).json({
+            success: true,
+            message: 'Products found succesfully',
+            data: result,
+        });
+    }
+    catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error,
+        });
+    }
+}
 
 export const createEcommerceControllers = {
     createEcommerceData,
@@ -118,27 +180,8 @@ export const createEcommerceControllers = {
     getSingleEcommerceData,
     modifyEcommerceData,
     deleteEcommerceData,
+    searchEcommerceData,
+    createOrderData,
+    getAllOrdereData,
 }
 
-
-
-
-
-
-// try {
-
-//     
-
-//     res.status(200).json({
-//         success: true,
-//         message: 'Products is created succesfully',
-//         data: result,
-//     });
-//   }
-//   catch (error: any) {
-//     res.status(500).json({
-//       success: false,
-//       message: 'Something went wrong',
-//       error: error,
-//     });
-//   }

@@ -1,17 +1,31 @@
+import { TOrder } from "../ecomerce-order/ecomerceorder.interface";
+import { Order } from "../ecomerce-order/ecomerceorder.model";
 import { TProducts } from "./ecommerce.interface";
 import { Ecommerce } from "./ecommerce.model";
 
 
-//To Create All products
+//To Create All Products
 const createEcommerceData = async (ecomData: TProducts) => {
 
     const result = await Ecommerce.create(ecomData);//it wil call controller model
     return result;
 };
 
-//To Get All  products
+//To Create All Orders
+const createOrderData = async (orderData: TOrder) => {
+    const result = await Order.create(orderData);
+    return result;
+}
+
+//To Get all Products
 const getEcommerceDataFromDB = async () => {
     const result = await Ecommerce.find();//it wil call controller model
+    return result;
+};
+
+//To Get all Orders
+const getOrderDataFromDB = async () => {
+    const result = await Order.find();//it wil call controller model
     return result;
 };
 
@@ -37,28 +51,23 @@ const deleteEcommerceDataFromDB = async (id: string) => {
    
 };
 
-const searchProductFromDB = async (search: { searchTerm?: string }) => {
-   
-    // const regex = new RegExp(.searchTerm, "i"); // Case-insensitive regex
-    // query.$or = [ 
-    //     { tags: { $in: [regex] } }
-    // ];
-    // const query = Ecommerce.find(search); // `query` is an instance of `Query`
-    // query.setOptions({ lean : true });
-    // query.$or = [ 
-    //     { tags: { $in: "iphone" } }
-    // ];
-    // const query: any = {};
+//search: { searchIterm?: string }
+const searchProductFromDB = async (search : string) => {
 
-    //     const regex = new RegExp(search.searchTerm, "i"); // Case-insensitive regex
-    //     query.$or = [
-    //         { tags: { $in: [regex] } }
-    //     ];
-    // }
+    const regex = new RegExp(search, "i");
 
-    // const results = await Ecommerce.find(query);
-    // return results;
-};
+    const query = {
+        $or: [
+            { name: { $regex: regex } },
+            { category: { $regex: regex } },
+            { tags: { $regex: regex } }
+        ]
+    };
+
+    console.log(query);
+    const result = await Ecommerce.find(query);
+    return result;
+}
 
 
 export const createEcommerceServices = {
@@ -67,6 +76,7 @@ export const createEcommerceServices = {
     getEcommerceSingleDataFromDB,
     modifyEcommerceDataFromDB,
     deleteEcommerceDataFromDB,
-    searchProductFromDB,
-    
+    searchProductFromDB, 
+    createOrderData,
+    getOrderDataFromDB,
 }
