@@ -11,7 +11,6 @@ const route = express_1.default.Router();
 route.post('/', ecommerce_controller_1.createEcommerceControllers.createEcommerceData);
 route.get('/', ecommerce_controller_1.createEcommerceControllers.getAllEcommerceData);
 route.get('/:productId', ecommerce_controller_1.createEcommerceControllers.getSingleEcommerceData);
-route.get('/:searchTerm', ecommerce_controller_1.createEcommerceControllers.searchEcommerceData);
 route.put('/:productId', ecommerce_controller_1.createEcommerceControllers.modifyEcommerceData);
 route.delete('/:productId', ecommerce_controller_1.createEcommerceControllers.deleteEcommerceData);
 exports.ecommerceRoutes = route;

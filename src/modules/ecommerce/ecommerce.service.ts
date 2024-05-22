@@ -18,15 +18,32 @@ const createOrderData = async (orderData: TOrder) => {
 }
 
 //To Get all Products
-const getEcommerceDataFromDB = async () => {
-    const result = await Ecommerce.find();//it wil call controller model
+const getEcommerceDataFromDB = async (searchTerm?: string) => {
+    let query = {};
+    if (searchTerm) {
+        query = {
+            $or: [
+                { name: new RegExp(searchTerm, 'i') },
+                { description: new RegExp(searchTerm, 'i') },
+                { category: new RegExp(searchTerm, 'i') },
+                { tags: { $in: [new RegExp(searchTerm, 'i')] } },
+            ],
+        };
+    }
+    const result = await Ecommerce.find(query);
     return result;
 };
 
 //To Get all Orders
-const getOrderDataFromDB = async () => {
-    const result = await Order.find();//it wil call controller model
-    return result;
+const getOrderDataFromDB = async (email?: string) => {
+
+    let query = {};
+    if (email) {
+        query = { email: email };
+    }
+    const result = await Order.find(query);//it wil call controller model
+    
+    return result;  
 };
 
 //To Get A single product
@@ -51,32 +68,13 @@ const deleteEcommerceDataFromDB = async (id: string) => {
    
 };
 
-//search: { searchIterm?: string }
-const searchProductFromDB = async (search : string) => {
-
-    const regex = new RegExp(search, "i");
-
-    const query = {
-        $or: [
-            { name: { $regex: regex } },
-            { category: { $regex: regex } },
-            { tags: { $regex: regex } }
-        ]
-    };
-
-    //console.log(query);
-    const result = await Ecommerce.find(query);
-    return result;
-}
-
 
 export const createEcommerceServices = {
     createEcommerceData,
     getEcommerceDataFromDB,
     getEcommerceSingleDataFromDB,
     modifyEcommerceDataFromDB,
-    deleteEcommerceDataFromDB,
-    searchProductFromDB, 
+    deleteEcommerceDataFromDB, 
     createOrderData,
     getOrderDataFromDB,
 }

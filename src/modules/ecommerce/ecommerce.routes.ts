@@ -7,7 +7,6 @@ const route = express.Router();
 route.post('/', createEcommerceControllers.createEcommerceData);
 route.get('/', createEcommerceControllers.getAllEcommerceData);
 route.get('/:productId', createEcommerceControllers.getSingleEcommerceData);
-route.get('/:searchTerm', createEcommerceControllers.searchEcommerceData);
 route.put('/:productId', createEcommerceControllers.modifyEcommerceData);
 route.delete('/:productId', createEcommerceControllers.deleteEcommerceData);
 

@@ -50,15 +50,17 @@ const createOrderData = async (req: Request, res: Response) => {
 const getAllEcommerceData = async (req: Request, res: Response) => {
 
     try {
+        const searchTerm = req.query.searchTerm as string | undefined;// Extract the searchTerm query parameter
+
         //it will call ecommerce.service.ts
-        const result = await createEcommerceServices.getEcommerceDataFromDB();
+        const result = await createEcommerceServices.getEcommerceDataFromDB(searchTerm); // Fetch products based on the searchTerm
 
         res.status(200).json({
             success: true,
-            message: 'Get all Products succesfully',
+            message: searchTerm ? `Products matching term ${searchTerm} fetched successfully!` : 'All products fetched successfully.',
             data: result,
         });
-    }
+    } 
     catch (error) {
         res.status(500).json({
             success: false,
@@ -67,19 +69,18 @@ const getAllEcommerceData = async (req: Request, res: Response) => {
         });
     }
 };
-const getAllOrdereData = async (req: Request, res: Response) => {
 
+const getAllOrdereData = async (req: Request, res: Response) => {
     try {
-        //it will call ecommerce.service.ts
-        const result = await createEcommerceServices.getOrderDataFromDB();
+        const email = req.query.email as string | undefined; // Extract the email query parameter
+        const result = await createEcommerceServices.getOrderDataFromDB(email); // Fetch orders based on the query parameter
 
         res.status(200).json({
             success: true,
-            message: 'Get all Order data succesfully',
+            message: email ? 'Order data fetched successfully for the specified email' : 'All order data fetched successfully',
             data: result,
         });
-    }
-    catch (error) {
+    } catch (error) {
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
@@ -92,6 +93,8 @@ const getSingleEcommerceData = async (req: Request, res: Response) => {
 
     try {
         const { productId } = req.params;
+
+        //const zodsingleData = productsValidationSchema.parse(productId )
         //it will call ecommerce.service.ts
         const result = await createEcommerceServices.getEcommerceSingleDataFromDB(productId);
         res.status(200).json({
@@ -139,35 +142,12 @@ const deleteEcommerceData = async (req: Request, res: Response) => {
     try {
 
         const { productId } = req.params;
-        
          //it will call ecommerce.service.ts
         const result = await createEcommerceServices.deleteEcommerceDataFromDB(productId);
 
         res.status(200).json({
             success: true,
             message: 'Products Delete succesfully',
-            data: result,
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Something went wrong',
-            error: error,
-        });
-    }
-}
-const searchEcommerceData = async (req: Request, res: Response) => {
-
-    try {
-        const {searchTerm} = req.params;
-        
-         //it will call ecommerce.service.ts
-        const result = await createEcommerceServices.searchProductFromDB(searchTerm);;
-
-        res.status(200).json({
-            success: true,
-            message: 'Products found succesfully',
             data: result,
         });
     }
@@ -186,7 +166,6 @@ export const createEcommerceControllers = {
     getSingleEcommerceData,
     modifyEcommerceData,
     deleteEcommerceData,
-    searchEcommerceData,
     createOrderData,
     getAllOrdereData,
 }

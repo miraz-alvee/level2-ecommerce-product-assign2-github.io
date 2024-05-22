@@ -55,11 +55,12 @@ const createOrderData = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 const getAllEcommerceData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const searchTerm = req.query.searchTerm; // Extract the searchTerm query parameter
         //it will call ecommerce.service.ts
-        const result = yield ecommerce_service_1.createEcommerceServices.getEcommerceDataFromDB();
+        const result = yield ecommerce_service_1.createEcommerceServices.getEcommerceDataFromDB(searchTerm); // Fetch products based on the searchTerm
         res.status(200).json({
             success: true,
-            message: 'Get all Products succesfully',
+            message: searchTerm ? `Products matching term ${searchTerm} fetched successfully!` : 'All products fetched successfully.',
             data: result,
         });
     }
@@ -73,11 +74,11 @@ const getAllEcommerceData = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 const getAllOrdereData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //it will call ecommerce.service.ts
-        const result = yield ecommerce_service_1.createEcommerceServices.getOrderDataFromDB();
+        const email = req.query.email; // Extract the email query parameter
+        const result = yield ecommerce_service_1.createEcommerceServices.getOrderDataFromDB(email); // Fetch orders based on the query parameter
         res.status(200).json({
             success: true,
-            message: 'Get all Order data succesfully',
+            message: email ? 'Order data fetched successfully for the specified email' : 'All order data fetched successfully',
             data: result,
         });
     }
@@ -92,6 +93,7 @@ const getAllOrdereData = (req, res) => __awaiter(void 0, void 0, void 0, functio
 const getSingleEcommerceData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId } = req.params;
+        //const zodsingleData = productsValidationSchema.parse(productId )
         //it will call ecommerce.service.ts
         const result = yield ecommerce_service_1.createEcommerceServices.getEcommerceSingleDataFromDB(productId);
         res.status(200).json({
@@ -147,33 +149,12 @@ const deleteEcommerceData = (req, res) => __awaiter(void 0, void 0, void 0, func
         });
     }
 });
-const searchEcommerceData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { searchTerm } = req.params;
-        //it will call ecommerce.service.ts
-        const result = yield ecommerce_service_1.createEcommerceServices.searchProductFromDB(searchTerm);
-        ;
-        res.status(200).json({
-            success: true,
-            message: 'Products found succesfully',
-            data: result,
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Something went wrong',
-            error: error,
-        });
-    }
-});
 exports.createEcommerceControllers = {
     createEcommerceData,
     getAllEcommerceData,
     getSingleEcommerceData,
     modifyEcommerceData,
     deleteEcommerceData,
-    searchEcommerceData,
     createOrderData,
     getAllOrdereData,
 };

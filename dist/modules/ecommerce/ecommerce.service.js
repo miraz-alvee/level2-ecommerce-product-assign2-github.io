@@ -23,13 +23,28 @@ const createOrderData = (orderData) => __awaiter(void 0, void 0, void 0, functio
     return result;
 });
 //To Get all Products
-const getEcommerceDataFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield ecommerce_model_1.Ecommerce.find(); //it wil call controller model
+const getEcommerceDataFromDB = (searchTerm) => __awaiter(void 0, void 0, void 0, function* () {
+    let query = {};
+    if (searchTerm) {
+        query = {
+            $or: [
+                { name: new RegExp(searchTerm, 'i') },
+                { description: new RegExp(searchTerm, 'i') },
+                { category: new RegExp(searchTerm, 'i') },
+                { tags: { $in: [new RegExp(searchTerm, 'i')] } },
+            ],
+        };
+    }
+    const result = yield ecommerce_model_1.Ecommerce.find(query);
     return result;
 });
 //To Get all Orders
-const getOrderDataFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield ecomerceorder_model_1.Order.find(); //it wil call controller model
+const getOrderDataFromDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    let query = {};
+    if (email) {
+        query = { email: email };
+    }
+    const result = yield ecomerceorder_model_1.Order.find(query); //it wil call controller model
     return result;
 });
 //To Get A single product
@@ -47,27 +62,12 @@ const deleteEcommerceDataFromDB = (id) => __awaiter(void 0, void 0, void 0, func
     const result = yield ecommerce_model_1.Ecommerce.findByIdAndDelete(id); //it wil call controller model
     return result;
 });
-//search: { searchIterm?: string }
-const searchProductFromDB = (search) => __awaiter(void 0, void 0, void 0, function* () {
-    const regex = new RegExp(search, "i");
-    const query = {
-        $or: [
-            { name: { $regex: regex } },
-            { category: { $regex: regex } },
-            { tags: { $regex: regex } }
-        ]
-    };
-    //console.log(query);
-    const result = yield ecommerce_model_1.Ecommerce.find(query);
-    return result;
-});
 exports.createEcommerceServices = {
     createEcommerceData,
     getEcommerceDataFromDB,
     getEcommerceSingleDataFromDB,
     modifyEcommerceDataFromDB,
     deleteEcommerceDataFromDB,
-    searchProductFromDB,
     createOrderData,
     getOrderDataFromDB,
 };
