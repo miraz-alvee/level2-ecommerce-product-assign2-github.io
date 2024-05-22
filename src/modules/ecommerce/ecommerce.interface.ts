@@ -1,5 +1,5 @@
 export interface TInventory {
-    quantity: string;
+    quantity: number;
     inStock: boolean;
 }
 
@@ -15,6 +15,6 @@ export interface TProducts {
     price: number;
     category: string;
     tags: string[];
-    variants:[TVariants];
+    variants:TVariants[];
     inventory: TInventory 
 };

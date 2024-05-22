@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
 import { createEcommerceServices } from "./ecommerce.service";
 
+import productsValidationSchema from "./ecommerce.zod.validation";
+
 const createEcommerceData = async (req: Request, res: Response) => {
 
     try {
+
+        //data validation with zod
+        const zodSchema = productsValidationSchema.parse(req.body);
+
         //it will call ecommerce.service.ts
-        const result = await createEcommerceServices.createEcommerceData(req.body);
+        const result = await createEcommerceServices.createEcommerceData(zodSchema);
         res.status(200).json({
             success: true,
             message: 'Products is created succesfully',
