@@ -12,7 +12,7 @@ app.use('/api/products', ecommerceRoutes)// route for ecomerce products
 app.use('/api/orders', orderRoutes) // route for ecomerce orders
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
+  res.send('Ecommerce Products and Orders!')
 })
 
 export default app;
