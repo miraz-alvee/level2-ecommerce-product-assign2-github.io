@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ecommerce = void 0;
 const mongoose_1 = require("mongoose");
 const inventorySchema = new mongoose_1.Schema({
-    quantity: { type: String, required: true },
+    quantity: { type: Number, default: 0 },
     inStock: { type: Boolean, default: true }
 });
 const variantsSchema = new mongoose_1.Schema({

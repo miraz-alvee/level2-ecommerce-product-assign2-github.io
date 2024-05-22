@@ -8,13 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createEcommerceControllers = void 0;
 const ecommerce_service_1 = require("./ecommerce.service");
+const ecommerce_zod_validation_1 = __importDefault(require("./ecommerce.zod.validation"));
 const createEcommerceData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        //data validation with zod
+        const zodSchema = ecommerce_zod_validation_1.default.parse(req.body);
         //it will call ecommerce.service.ts
-        const result = yield ecommerce_service_1.createEcommerceServices.createEcommerceData(req.body);
+        const result = yield ecommerce_service_1.createEcommerceServices.createEcommerceData(zodSchema);
         res.status(200).json({
             success: true,
             message: 'Products is created succesfully',
