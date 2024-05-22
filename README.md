@@ -156,13 +156,13 @@ Copy code
 Find Orders by Email
 http
 Copy code
-GET /api/orders?email=level2@programming-hero.com
+GET /api/orders?email=email
 Response:
 
 json
 Copy code
 {
   "success": true,
-  "message": "Orders matching \"level2@programming-hero.com\" fetched successfully",
+  "message": "Orders matching \"email\" fetched successfully",
   "data": [...]
 }
